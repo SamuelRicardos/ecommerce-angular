@@ -2,6 +2,8 @@
 
 Este projeto é um sistema simples de gerenciamento de produtos (CRUD) para um e-commerce, desenvolvido com Angular 17 no front-end, TailwindCSS para estilização e Spring Boot com MongoDB no back-end.
 
+Link do repositório back-end: https://github.com/SamuelRicardos/ecommerce-java
+
 ---
 
 ## ✨ Funcionalidades
