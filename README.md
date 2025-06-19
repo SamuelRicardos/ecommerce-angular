@@ -1,27 +1,56 @@
-# AngularEcommerce
+# 🛒 E-commerce CRUD com Angular 17, TailwindCSS e Spring Boot
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.4.
+Este projeto é um sistema simples de gerenciamento de produtos (CRUD) para um e-commerce, desenvolvido com Angular 17 no front-end, TailwindCSS para estilização e Spring Boot com MongoDB no back-end.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## ✨ Funcionalidades
 
-## Code scaffolding
+- 📦 Cadastro de produtos
+- 📝 Edição de produtos
+- 🗑️ Remoção de produtos
+- 🔎 Listagem de todos os produtos
+- ⚙️ Integração com API REST em Java (Spring Boot)
+- 🧩 Armazenamento dos dados no MongoDB
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## 🧰 Tecnologias utilizadas
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Front-end
+- [Angular 17 (Standalone)](https://angular.io/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-## Running unit tests
+### Back-end
+- [Java 17](https://www.oracle.com/br/java/technologies/javase/jdk17-archive-downloads.html)
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [MongoDB](https://www.mongodb.com/)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## 🚀 Como rodar o projeto
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 🔧 Pré-requisitos
 
-## Further help
+- Node.js (v18+)
+- Angular CLI (`npm install -g @angular/cli`)
+- Java 17
+- MongoDB instalado e rodando localmente
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
+
+### ▶️ Rodando o Front-end (Angular)
+
+```bash
+# Clone o repositório
+git clone https://github.com/SamuelRicardos/angular-ecommerce.git
+
+# Acesse a pasta do projeto
+cd angular-ecommerce
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+ng serve
