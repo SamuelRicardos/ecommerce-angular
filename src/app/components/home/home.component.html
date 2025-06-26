@@ -1,48 +1,59 @@
 <mat-toolbar color="primary" class="header">
-  <span class="logo">
-    <mat-icon class="logo-icon">storefront</mat-icon>
-    ShopPrime
-  </span>
-  <div class="nav-links">
-    <a class="nav-item">Categorias</a>
-    <a class="nav-item">Mais vendidos</a>
-    <a class="nav-item">Novidades</a>
-  </div>
-  <span class="spacer"></span>
-  <button mat-icon-button class="icon-button">
-    <mat-icon>search</mat-icon>
-  </button>
-  <button mat-icon-button class="icon-button">
-    <mat-icon>shopping_cart</mat-icon>
-  </button>
-  <button mat-stroked-button color="primary">Login</button>
+    <span class="logo">
+        <mat-icon class="logo-icon">storefront</mat-icon>
+        ShopPrime
+    </span>
+    <div class="nav-links">
+        <a class="nav-item">Categorias</a>
+        <a class="nav-item">Mais vendidos</a>
+        <a class="nav-item">Novidades</a>
+    </div>
+    <span class="spacer"></span>
+    <button mat-icon-button class="icon-button">
+        <mat-icon>search</mat-icon>
+    </button>
+    <button mat-icon-button class="icon-button">
+        <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button mat-stroked-button color="primary">Login</button>
 </mat-toolbar>
 
 <main class="main-container">
-  <!-- Banner -->
-<section class="banner">
-  <h1 class="banner-title">
-    Explore uma seleção exclusiva de produtos
-  </h1>
-</section>
+    <!-- Banner -->
+    <section class="banner">
+        <h1 class="banner-title">
+            Explore uma seleção exclusiva de produtos
+        </h1>
+    </section>
 
-  <!-- Produtos -->
-  <section class="produtos-grid">
-    <mat-card class="produto-card" *ngFor="let p of produtos">
-      <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
-      <mat-card-content>
-        <h3 class="produto-nome">{{ p.nome }}</h3>
-        <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
-      </mat-card-content>
-      <mat-card-actions align="end">
-        <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho">
-          <mat-icon>add_shopping_cart</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </section>
+    <!-- Produtos -->
+    <section class="produtos-grid">
+        <mat-card class="produto-card" *ngFor="let p of produtos">
+            <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
+
+            <mat-card-content>
+                <h3 class="produto-nome">{{ p.nome }}</h3>
+
+                <!-- Estrelas de avaliação -->
+                <div class="produto-estrelas">
+                    <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
+                </div>
+
+                <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho">
+                    <mat-icon>add_shopping_cart</mat-icon>
+                    <!-- <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">
+                        {{ star <= p.avaliacao ? 'star' : 'star_border' }} 
+                    </mat-icon> -->
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </section>
 </main>
 
 <mat-toolbar color="primary" class="footer">
-  <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
+    <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
 </mat-toolbar>
