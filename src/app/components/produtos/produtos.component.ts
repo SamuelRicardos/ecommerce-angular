@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { Produtos } from '../../types/produtos.types';
 import { ProdutosService } from '../../services/produtos.service';
 import { CommonModule } from '@angular/common';
@@ -10,12 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -23,25 +27,35 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'
 })
-export class ProdutosComponent {
-  produtos: Produtos[] = [];
-  produtoAtual: Produtos = { nome: '', preco: 0, codigo: ''};
+export class ProdutosComponent implements AfterViewInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  produtoAtual: Produtos = { nome: '', preco: 0, codigo: '', imagemUrl: '' };
   editando = false;
 
-  constructor(private produtoService: ProdutosService) {}
+  produtos = new MatTableDataSource<Produtos>([]);
+
+  displayedColumns: string[] = ['imagem', 'nomeCodigo', 'preco', 'acoes'];
+
+  constructor(private produtoService: ProdutosService) { }
 
   ngOnInit(): void {
     this.listarProdutos();
   }
 
+  ngAfterViewInit() {
+    this.produtos.paginator = this.paginator;
+  }
+
   listarProdutos() {
     this.produtoService.getProdutos().subscribe((data) => {
-      this.produtos = data;
+      this.produtos.data = data;
     });
   }
 
@@ -72,7 +86,7 @@ export class ProdutosComponent {
   }
 
   resetarFormulario() {
-    this.produtoAtual = { nome: '', preco: 0, codigo: '' };
+    this.produtoAtual = { nome: '', preco: 0, codigo: '', imagemUrl: '' };
     this.editando = false;
   }
 }
