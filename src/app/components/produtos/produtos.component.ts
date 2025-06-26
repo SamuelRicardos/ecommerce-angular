@@ -3,11 +3,28 @@ import { Produtos } from '../../types/produtos.types';
 import { ProdutosService } from '../../services/produtos.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule, 
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+    MatToolbarModule
+  ],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'
 })

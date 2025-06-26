@@ -1,0 +1,101 @@
+/* HEADER */
+.header-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--mat-elevation-z4);
+  
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+/* MAIN */
+.main-container {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.title-main {
+  margin-bottom: 1rem; /* 16px */
+}
+
+/* FORMULÁRIO */
+.produto-form {
+  mat-card {
+    box-shadow: var(--mat-elevation-z2);
+  }
+
+  mat-card-content {
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+  }
+
+  mat-card-actions {
+    justify-content: flex-end;
+  }
+}
+
+/* LISTAGEM */
+.produtos-list {
+  margin-top: 32px;
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  mat-divider {
+    margin: 16px 0;
+  }
+
+  mat-card {
+    margin-bottom: 12px;
+    box-shadow: var(--mat-elevation-z1);
+
+    mat-card-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .produto-info {
+        h3 {
+          margin: 0;
+        }
+
+        p {
+          margin-top: 4px;
+          margin-bottom: 0;
+        }
+      }
+
+      .produto-actions {
+        button {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+}
+
+/* FOOTER */
+.footer-toolbar {
+  margin-top: 40px;
+  
+  div {
+    width: 100%;
+    text-align: center;
+  }
+
+  p {
+    color: #fff;
+  }
+}
