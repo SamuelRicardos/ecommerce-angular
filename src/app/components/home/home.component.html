@@ -5,7 +5,11 @@
   </span>
 
   <div class="nav-links">
-    <a class="nav-item">Categorias</a>
+    <mat-menu #categoriasMenu="matMenu">
+      <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">{{ c }}</button>
+    </mat-menu>
+
+    <a class="nav-item" [matMenuTriggerFor]="categoriasMenu">Categorias</a>
     <a class="nav-item">Mais vendidos</a>
     <a class="nav-item">Novidades</a>
   </div>
@@ -13,24 +17,13 @@
   <span class="spacer"></span>
 
   <!-- Grupo da lupa e input -->
-<mat-form-field appearance="outline" class="search-field">
-  <mat-icon matPrefix>search</mat-icon>
-  <input
-    matInput
-    placeholder="Pesquisar produtos"
-    [(ngModel)]="searchTerm"
-    (input)="onSearchChange()"
-  />
-  <button
-    mat-icon-button
-    matSuffix
-    aria-label="Limpar busca"
-    *ngIf="searchTerm"
-    (click)="clearSearch()"
-  >
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-form-field>
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput placeholder="Pesquisar produtos" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
+    <button mat-icon-button matSuffix aria-label="Limpar busca" *ngIf="searchTerm" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
 
   <button mat-icon-button class="icon-button" aria-label="Carrinho">
     <mat-icon>shopping_cart</mat-icon>
@@ -40,41 +33,41 @@
 </mat-toolbar>
 
 <main class="main-container">
-    <!-- Banner -->
-    <section class="banner">
-        <h1 class="banner-title">
-            Explore uma seleção exclusiva de produtos
-        </h1>
-    </section>
+  <!-- Banner -->
+  <section class="banner">
+    <h1 class="banner-title">
+      Explore uma seleção exclusiva de produtos
+    </h1>
+  </section>
 
-    <!-- Produtos -->
-    <section class="produtos-grid">
-        <mat-card class="produto-card" *ngFor="let p of produtos">
-            <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
+  <!-- Produtos -->
+  <section class="produtos-grid">
+    <mat-card class="produto-card" *ngFor="let p of produtos">
+      <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
 
-            <mat-card-content>
-                <h3 class="produto-nome">{{ p.nome }}</h3>
+      <mat-card-content>
+        <h3 class="produto-nome">{{ p.nome }}</h3>
 
-                <!-- Estrelas de avaliação -->
-                <div class="produto-estrelas">
-                    <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
-                </div>
+        <!-- Estrelas de avaliação -->
+        <div class="produto-estrelas">
+          <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
+        </div>
 
-                <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
-            </mat-card-content>
+        <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
+      </mat-card-content>
 
-            <mat-card-actions align="end">
-                <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho">
-                    <mat-icon>add_shopping_cart</mat-icon>
-                    <!-- <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">
+      <mat-card-actions align="end">
+        <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho">
+          <mat-icon>add_shopping_cart</mat-icon>
+          <!-- <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">
                         {{ star <= p.avaliacao ? 'star' : 'star_border' }} 
                     </mat-icon> -->
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </section>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
 </main>
 
 <mat-toolbar color="primary" class="footer">
-    <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
+  <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
 </mat-toolbar>

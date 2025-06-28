@@ -10,6 +10,7 @@ import { Produtos } from '../../types/produtos.types';
 import { MatFormField } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatDividerModule,
     MatFormField,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -31,6 +33,8 @@ import { MatInputModule } from '@angular/material/input';
 export class HomeComponent implements OnInit {
   produtos: Produtos[] = [];
   produtosOriginais: Produtos[] = [];
+  categorias: string[] = [];
+  searchTerm = '';
 
   constructor(private homeService: HomeService) { }
 
@@ -42,11 +46,17 @@ export class HomeComponent implements OnInit {
     this.homeService.getProdutosEmDestaque().subscribe((produtos) => {
       this.produtosOriginais = produtos;
       this.produtos = produtos;
-      console.log(produtos)
+
+      const todasCategorias = produtos.flatMap((p) => p.categorias || []);
+      this.categorias = [...new Set(todasCategorias)];
     });
   }
 
-  searchTerm = '';
+  filtrarPorCategoria(categoria: string) {
+    this.produtos = this.produtosOriginais.filter(produto =>
+      produto.categorias?.includes(categoria)
+    );
+  }
 
   onSearchChange() {
     const termo = this.searchTerm.trim().toLowerCase();
@@ -54,12 +64,11 @@ export class HomeComponent implements OnInit {
     if (termo === '') {
       this.produtos = this.produtosOriginais;
     } else {
-      this.produtos = this.produtosOriginais.filter(p => 
+      this.produtos = this.produtosOriginais.filter(p =>
         p.nome.toLowerCase().includes(termo)
       );
     }
 
-    console.log('Buscar por:', termo, this.produtos);
   }
 
   clearSearch() {

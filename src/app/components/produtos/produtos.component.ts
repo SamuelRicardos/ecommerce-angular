@@ -14,6 +14,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-produtos',
@@ -29,19 +31,32 @@ import { MatPaginator } from '@angular/material/paginator';
     MatDividerModule,
     MatToolbarModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    MatChipsModule
+    
   ],
   templateUrl: './produtos.component.html',
   styleUrl: './produtos.component.scss'
 })
 export class ProdutosComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  produtoAtual: Produtos = { nome: '', preco: 0, codigo: '', imagemUrl: '' };
+
+  todasCategorias = ['Eletrônicos', 'Roupas', 'Beleza', 'Livros', 'Casa'];
+
+  produtoAtual: Produtos = {
+  nome: '',
+  preco: 0,
+  imagemUrl: '',
+  descricao: '',
+  categorias: []
+};
+
   editando = false;
 
   produtos = new MatTableDataSource<Produtos>([]);
 
-  displayedColumns: string[] = ['imagem', 'nomeCodigo', 'preco', 'acoes'];
+  displayedColumns: string[] = ['imagem', 'nomeCodigo', 'categorias', 'quantidadeEstoque', 'preco', 'acoes'];
 
   constructor(private produtoService: ProdutosService) { }
 
@@ -86,7 +101,13 @@ export class ProdutosComponent implements AfterViewInit {
   }
 
   resetarFormulario() {
-    this.produtoAtual = { nome: '', preco: 0, codigo: '', imagemUrl: '' };
-    this.editando = false;
+  this.produtoAtual = {
+    nome: '',
+    preco: 0,
+    imagemUrl: '',
+    descricao: '',
+    categorias: []
+  };
+  this.editando = false;
   }
 }
