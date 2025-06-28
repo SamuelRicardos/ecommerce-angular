@@ -26,7 +26,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatFormField,
     MatInputModule,
     MatMenuModule
-],
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -35,11 +35,29 @@ export class HomeComponent implements OnInit {
   produtosOriginais: Produtos[] = [];
   categorias: string[] = [];
   searchTerm = '';
+  currentSlide = 0;
+
+  banners = [
+    {
+      image: 'https://img.freepik.com/fotos-gratis/conceito-de-compras-fecha-retrato-jovem-linda-e-atraente-garota-ruiva-sorrindo-olhando-para-a-camera_1258-118763.jpg',
+      title: 'Explore uma seleção exclusiva de produtos'
+    },
+    {
+      image: 'https://img.freepik.com/fotos-gratis/conceito-de-compras-fecha-retrato-jovem-linda-e-atraente-garota-ruiva-sorrindo-olhando-para-a-camera_1258-126800.jpg',
+      title: 'Promoções incríveis esperando por você'
+    },
+    {
+      image: 'https://img.freepik.com/fotos-premium/vista-superior-do-conceito-de-compras-online-com-cartao-de-credito-telefone-inteligente-e-computador-isolado-no-fundo-da-mesa-amarela-do-escritorio_315337-3591.jpg',
+      title: 'Confira nossos lançamentos exclusivos'
+    }
+  ];
 
   constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
     this.carregarProdutos();
+    this.carregarProdutos();
+    setInterval(() => this.nextSlide(), 4000);
   }
 
   carregarProdutos(): void {
@@ -82,5 +100,15 @@ export class HomeComponent implements OnInit {
   clearSearch() {
     this.searchTerm = '';
     this.onSearchChange();
+  }
+
+
+
+  nextSlide(): void {
+    this.currentSlide = (this.currentSlide + 1) % this.banners.length;
+  }
+
+  prevSlide(): void {
+    this.currentSlide = (this.currentSlide - 1 + this.banners.length) % this.banners.length;
   }
 }

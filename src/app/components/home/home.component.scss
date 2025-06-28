@@ -1,87 +1,87 @@
 :host {
-    display: block;
-    background-color: #fff;
-    color: #111;
-    font-family: 'Segoe UI', sans-serif;
+  display: block;
+  background-color: #fff;
+  color: #111;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 /* HEADER */
 .header {
-    background-color: #fff;
-    color: #111;
-    padding: 40px 24px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  color: #111;
+  padding: 40px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 768px) {
 
-    .nav-links,
-    .search-field,
-    .icon-button+button {
-        display: none !important;
-    }
+  .nav-links,
+  .search-field,
+  .icon-button+button {
+    display: none !important;
+  }
 
-    .header {
-        justify-content: space-between;
-        padding: 16px;
-    }
+  .header {
+    justify-content: space-between;
+    padding: 16px;
+  }
 
-    .logo {
-        font-size: 18px;
-    }
+  .logo {
+    font-size: 18px;
+  }
 
-    .logo-icon {
-        font-size: 20px;
-        padding: 3px;
-    }
+  .logo-icon {
+    font-size: 20px;
+    padding: 3px;
+  }
 
-    .icon-button {
-        margin-left: auto;
-    }
+  .icon-button {
+    margin-left: auto;
+  }
 
-    .menu-button {
-        display: inline-flex !important;
-    }
+  .menu-button {
+    display: inline-flex !important;
+  }
 
 }
 
 .menu-button {
-    display: none;
+  display: none;
 }
 
 .logo {
-    font-weight: bold;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .logo-icon {
-    border: 1.5px solid #000;
-    border-radius: 50%;
-    padding: 4px;
-    background-color: #fff;
-    font-size: 24px;
+  border: 1.5px solid #000;
+  border-radius: 50%;
+  padding: 4px;
+  background-color: #fff;
+  font-size: 24px;
 }
 
 .icon-button {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .nav-links {
-    margin-left: 32px;
-    display: flex;
-    gap: 16px;
+  margin-left: 32px;
+  display: flex;
+  gap: 16px;
 }
 
 .nav-item {
-    cursor: pointer;
-    font-weight: 500;
+  cursor: pointer;
+  font-weight: 500;
 }
 
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 // .icon-button mat-icon {
@@ -89,88 +89,166 @@
 
 /* BANNER */
 .banner {
-    position: relative;
-    width: 70%;
+  position: relative;
+  width: 85%;
+  height: 350px;
+  margin: 10px auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  border-radius: 12px;
+  overflow: hidden;
+
+  .banner-title {
+    position: absolute;
+    z-index: 1;
+    left: 40px;
+    bottom: 100px;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-size: 2rem;
+    max-width: 60%;
+    font-weight: 600;
+  }
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 85%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+  }
+
+  .banner {
     height: 350px;
-    margin: 10px auto;
-    background-image: url('https://img.freepik.com/fotos-gratis/conceito-de-compras-fecha-retrato-jovem-linda-e-atraente-garota-ruiva-sorrindo-olhando-para-a-camera_1258-118763.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center top;
+    background-position: center center;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px 40px;
     border-radius: 12px;
-    overflow: hidden;
+    box-sizing: border-box;
+  }
 
-    .banner-title {
-        position: absolute;
-        z-index: 1;
-        left: 40px;
-        bottom: 100px;
-        color: white;
-        padding: 16px 24px;
-        border-radius: 8px;
-        font-size: 2rem;
-        max-width: 60%;
-        font-weight: 600;
-    }
+  .banner-title {
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    max-width: 70%;
+  }
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease-in-out;
+}
+
+.nav:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.left {
+  left: 70px;
+}
+
+.right {
+  right: 70px;
+}
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    display: none;
+  }
 }
 
 /* PRODUTOS */
+
+.section_produtos {
+  padding-left: 30px;
+}
+
 .produtos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 24px;
-    padding: 32px 32px 32px 0px;
-    width: 70%;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  padding: 32px 32px 32px 0px;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .categoria-titulo {
-    font-size: 1.5rem;
-    margin: 0 auto;
-    font-weight: 600;
-    padding: 2rem 0rem 0rem 14rem;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  font-weight: 600;
+  padding: 2rem 0rem 0rem 14rem;
 }
 
 .produto-card {
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    max-width: 240px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-width: 240px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
 }
 
 .produto-imagem {
-    width: 100%;
-    height: 160px;
-    object-fit: contain;
-    padding: 8px;
-    border-radius: 12px 12px 0 0;
-    box-sizing: border-box;
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  padding: 8px;
+  border-radius: 12px 12px 0 0;
+  box-sizing: border-box;
 }
 
 .produto-nome {
-    font-size: 16px;
-    font-weight: 600;
-    margin: 8px 12px 4px 0px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 8px 12px 4px 0px;
 }
 
 .produto-preco {
-    font-weight: 500;
-    color: #333;
-    margin: 8px 12px 4px 0px;
+  font-weight: 500;
+  color: #333;
+  margin: 8px 12px 4px 0px;
 }
 
 .produto-estrelas {
-    display: flex;
-    gap: 4px;
-    margin: 8px 12px 4px 0px;
+  display: flex;
+  gap: 4px;
+  margin: 8px 12px 4px 0px;
 }
 
 .estrela {
-    font-size: 20px;
-    color: #FFD700;
+  font-size: 20px;
+  color: #FFD700;
 }
 
 @media (max-width: 768px) {

@@ -3,7 +3,7 @@
   <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menuMobile">
     <mat-icon>menu</mat-icon>
   </button>
-  
+
   <span class="logo">
     <mat-icon class="logo-icon">storefront</mat-icon>
     ShopPrime
@@ -51,19 +51,8 @@
 
   <mat-form-field appearance="outline" class="search-field">
     <mat-icon matPrefix>search</mat-icon>
-    <input
-      matInput
-      placeholder="Pesquisar produtos"
-      [(ngModel)]="searchTerm"
-      (input)="onSearchChange()"
-    />
-    <button
-      mat-icon-button
-      matSuffix
-      aria-label="Limpar busca"
-      *ngIf="searchTerm"
-      (click)="clearSearch()"
-    >
+    <input matInput placeholder="Pesquisar produtos" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
+    <button mat-icon-button matSuffix aria-label="Limpar busca" *ngIf="searchTerm" (click)="clearSearch()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -77,10 +66,17 @@
 
 <main class="main-container">
   <!-- Banner -->
-  <section class="banner">
-    <h1 class="banner-title">
-      Explore uma seleção exclusiva de produtos
-    </h1>
+  <section class="carousel">
+    <div class="slides" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
+      <div class="slide" *ngFor="let banner of banners">
+        <div class="banner" [style.backgroundImage]="'url(' + banner.image + ')'">
+          <h1 class="banner-title">{{ banner.title }}</h1>
+        </div>
+      </div>
+    </div>
+
+    <button class="nav left" (click)="prevSlide()">‹</button>
+    <button class="nav right" (click)="nextSlide()">›</button>
   </section>
 
   <!-- Produtos -->
