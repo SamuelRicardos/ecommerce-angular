@@ -11,6 +11,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { CategoryFilterPipe } from '../../pipes/category-filter.pipe';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatDividerModule,
     MatFormField,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    CategoryFilterPipe
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -58,6 +60,10 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  getProdutosPorCategoria(categoria: string) {
+    return this.produtos.filter(p => p.categorias?.includes(categoria));
+  }
+
   onSearchChange() {
     const termo = this.searchTerm.trim().toLowerCase();
 
@@ -69,6 +75,10 @@ export class HomeComponent implements OnInit {
       );
     }
 
+  }
+
+  limparFiltro() {
+    this.produtos = [...this.produtosOriginais];
   }
 
   clearSearch() {

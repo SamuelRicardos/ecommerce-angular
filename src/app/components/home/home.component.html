@@ -12,6 +12,7 @@
     <a class="nav-item" [matMenuTriggerFor]="categoriasMenu">Categorias</a>
     <a class="nav-item">Mais vendidos</a>
     <a class="nav-item">Novidades</a>
+    <a class="nav-item" (click)="limparFiltro()">Produtos</a>
   </div>
 
   <span class="spacer"></span>
@@ -41,30 +42,31 @@
   </section>
 
   <!-- Produtos -->
-  <section class="produtos-grid">
-    <mat-card class="produto-card" *ngFor="let p of produtos">
-      <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
+  <section class="section_produtos" *ngFor="let categoria of categorias">
+    <ng-container *ngIf="getProdutosPorCategoria(categoria).length > 0">
+      <h2 class="categoria-titulo">{{ categoria }}</h2>
+      <div class="produtos-grid">
+        <mat-card class="produto-card" *ngFor="let p of getProdutosPorCategoria(categoria)">
+          <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
 
-      <mat-card-content>
-        <h3 class="produto-nome">{{ p.nome }}</h3>
+          <mat-card-content>
+            <h3 class="produto-nome">{{ p.nome }}</h3>
 
-        <!-- Estrelas de avaliação -->
-        <div class="produto-estrelas">
-          <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
-        </div>
+            <div class="produto-estrelas">
+              <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
+            </div>
 
-        <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
-      </mat-card-content>
+            <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
+          </mat-card-content>
 
-      <mat-card-actions align="end">
-        <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho">
-          <mat-icon>add_shopping_cart</mat-icon>
-          <!-- <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">
-                        {{ star <= p.avaliacao ? 'star' : 'star_border' }} 
-                    </mat-icon> -->
-        </button>
-      </mat-card-actions>
-    </mat-card>
+          <mat-card-actions align="end">
+            <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho">
+              <mat-icon>add_shopping_cart</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
   </section>
 </main>
 
