@@ -11,6 +11,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatDividerModule,
     MatFormField,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    RouterModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -52,7 +54,7 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor(private homeService: HomeService) { }
+  constructor(private homeService: HomeService, private router: Router) { }
 
   ngOnInit(): void {
     this.carregarProdutos();
@@ -102,7 +104,10 @@ export class HomeComponent implements OnInit {
     this.onSearchChange();
   }
 
-
+  irParaLogin() {
+    this.router.navigate(['/login']);
+    console.log("oi")
+  }
 
   nextSlide(): void {
     this.currentSlide = (this.currentSlide + 1) % this.banners.length;

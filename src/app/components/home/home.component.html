@@ -27,7 +27,8 @@
       <mat-icon>shopping_cart</mat-icon>
       <span>Carrinho</span>
     </button>
-    <button mat-menu-item>
+    
+    <button mat-menu-item (click)="irParaLogin()">
       <mat-icon>login</mat-icon>
       <span>Login</span>
     </button>
@@ -61,7 +62,7 @@
     <mat-icon>shopping_cart</mat-icon>
   </button>
 
-  <button mat-stroked-button color="primary">Login</button>
+  <button mat-stroked-button color="primary" (click)="irParaLogin()">Login</button>
 </mat-toolbar>
 
 <main class="main-container">
