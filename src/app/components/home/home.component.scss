@@ -60,9 +60,9 @@
 .logo-icon {
   border: 1.5px solid #000;
   border-radius: 50%;
-  padding: 4px;
+  padding: 1.5px;
   background-color: #fff;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .icon-button {
@@ -255,6 +255,10 @@
 @media (max-width: 768px) {
   .banner {
     display: none;
+  }
+
+  .section_produtos {
+    padding-left: 0;
   }
 
   .produtos-grid {

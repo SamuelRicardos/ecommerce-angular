@@ -1,68 +1,68 @@
 <mat-toolbar color="primary" class="header">
-  <!-- Menu hamburguer: só aparece no mobile -->
-  <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menuMobile">
-    <mat-icon>menu</mat-icon>
-  </button>
-
-  <span class="logo">
-    <mat-icon class="logo-icon">storefront</mat-icon>
-    ShopPrime
-  </span>
-
-
-  <!-- Menu dropdown no mobile -->
-  <mat-menu #menuMobile="matMenu">
-    <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
-      {{ c }}
+    <!-- Menu hamburguer: só aparece no mobile -->
+    <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menuMobile">
+        <mat-icon>menu</mat-icon>
     </button>
-    <button mat-menu-item (click)="limparFiltro()">Produtos</button>
-    <button mat-menu-item>Mais vendidos</button>
-    <button mat-menu-item>Novidades</button>
-    <mat-divider></mat-divider>
-    <button mat-menu-item>
-      <mat-icon>search</mat-icon>
-      <span>Pesquisar</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>shopping_cart</mat-icon>
-      <span>Carrinho</span>
-    </button>
-    
-    <button mat-menu-item (click)="irParaLogin()">
-      <mat-icon>login</mat-icon>
-      <span>Login</span>
-    </button>
-  </mat-menu>
 
-  <!-- Links visíveis no desktop -->
-  <div class="nav-links">
-    <mat-menu #categoriasMenu="matMenu">
-      <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
-        {{ c }}
-      </button>
+    <span class="logo">
+        <mat-icon class="logo-icon">storefront</mat-icon>
+        ShopPrime
+    </span>
+
+
+    <!-- Menu dropdown no mobile -->
+    <mat-menu #menuMobile="matMenu">
+        <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
+            {{ c }}
+        </button>
+        <button mat-menu-item (click)="limparFiltro()">Produtos</button>
+        <button mat-menu-item>Mais vendidos</button>
+        <button mat-menu-item>Novidades</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+            <mat-icon>search</mat-icon>
+            <span>Pesquisar</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>shopping_cart</mat-icon>
+            <span>Carrinho</span>
+        </button>
+
+        <button mat-menu-item (click)="irParaLogin()">
+            <mat-icon>login</mat-icon>
+            <span>Login</span>
+        </button>
     </mat-menu>
 
-    <a class="nav-item" [matMenuTriggerFor]="categoriasMenu">Categorias</a>
-    <a class="nav-item">Mais vendidos</a>
-    <a class="nav-item">Novidades</a>
-    <a class="nav-item" (click)="limparFiltro()">Produtos</a>
-  </div>
+    <!-- Links visíveis no desktop -->
+    <div class="nav-links">
+        <mat-menu #categoriasMenu="matMenu">
+            <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
+                {{ c }}
+            </button>
+        </mat-menu>
 
-  <span class="spacer"></span>
+        <a class="nav-item" [matMenuTriggerFor]="categoriasMenu">Categorias</a>
+        <a class="nav-item">Mais vendidos</a>
+        <a class="nav-item">Novidades</a>
+        <a class="nav-item" (click)="limparFiltro()">Produtos</a>
+    </div>
 
-  <mat-form-field appearance="outline" class="search-field">
-    <mat-icon matPrefix>search</mat-icon>
-    <input matInput placeholder="Pesquisar produtos" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
-    <button mat-icon-button matSuffix aria-label="Limpar busca" *ngIf="searchTerm" (click)="clearSearch()">
-      <mat-icon>close</mat-icon>
+    <span class="spacer"></span>
+
+    <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Pesquisar produtos" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
+        <button mat-icon-button matSuffix aria-label="Limpar busca" *ngIf="searchTerm" (click)="clearSearch()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <button mat-icon-button class="icon-button" aria-label="Carrinho">
+        <mat-icon>shopping_cart</mat-icon>
     </button>
-  </mat-form-field>
 
-  <button mat-icon-button class="icon-button" aria-label="Carrinho">
-    <mat-icon>shopping_cart</mat-icon>
-  </button>
-
-  <button mat-stroked-button color="primary" (click)="irParaLogin()">Login</button>
+    <button mat-stroked-button color="primary" (click)="irParaLogin()">Login</button>
 </mat-toolbar>
 
 <div *ngIf="produtos" class="produto-container">
@@ -92,7 +92,12 @@
                         <mat-icon>add_shopping_cart</mat-icon>
                         Adicionar ao carrinho
                     </button>
+                    
+                    <button mat-flat-button color="accent">
+                        Comprar agora
+                    </button>
                 </div>
+
             </div>
         </div>
     </mat-card>

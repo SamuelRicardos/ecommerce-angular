@@ -65,9 +65,9 @@
 .logo-icon {
   border: 1.5px solid #000;
   border-radius: 50%;
-  padding: 4px;
+  padding: 1.5px;
   background-color: #fff;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .icon-button {
@@ -93,7 +93,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 80vh;
   padding: 24px;
 }
 
@@ -140,5 +140,7 @@
 }
 
 .acoes {
-  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
