@@ -65,50 +65,35 @@
   <button mat-stroked-button color="primary" (click)="irParaLogin()">Login</button>
 </mat-toolbar>
 
-<main class="main-container">
-  <!-- Banner -->
-  <section class="carousel">
-    <div class="slides" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
-      <div class="slide" *ngFor="let banner of banners">
-        <div class="banner" [style.backgroundImage]="'url(' + banner.image + ')'">
-          <h1 class="banner-title">{{ banner.title }}</h1>
-        </div>
-      </div>
-    </div>
-
-    <button class="nav left" (click)="prevSlide()">‹</button>
-    <button class="nav right" (click)="nextSlide()">›</button>
-  </section>
-
-  <!-- Produtos -->
-  <section class="section_produtos" *ngFor="let categoria of categorias">
-    <ng-container *ngIf="getProdutosPorCategoria(categoria).length > 0">
-      <h2 class="categoria-titulo">{{ categoria }}</h2>
-      <div class="produtos-grid">
-        <mat-card class="produto-card" [routerLink]="['/produto', p.id]" *ngFor="let p of getProdutosPorCategoria(categoria)">
-          <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
-
-          <mat-card-content>
-            <h3 class="produto-nome">{{ p.nome }}</h3>
-
-            <div class="produto-estrelas">
-              <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
+<div *ngIf="produtos" class="produto-container">
+    <mat-card class="produto-card-detalhes">
+        <div class="detalhes-layout">
+            <!-- Imagem do Produto -->
+            <div class="imagem-container">
+                <img [src]="produtos.imagemUrl" alt="{{ produtos.nome }}" class="imagem-produto" />
             </div>
 
-            <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
-          </mat-card-content>
+            <!-- Informações do Produto -->
+            <div class="info-container">
+                <h2>{{ produtos.nome }}</h2>
 
-          <mat-card-actions align="end">
-            <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho">
-              <mat-icon>add_shopping_cart</mat-icon>
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </ng-container>
-  </section>
-</main>
+                <div class="avaliacao">
+                    <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]">star</mat-icon>
+                </div>
 
-<mat-toolbar color="primary" class="footer">
-  <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
-</mat-toolbar>
+                <mat-divider></mat-divider>
+
+                <p class="descricao">{{ produtos.descricao }}</p>
+
+                <h3 class="preco">R$ {{ produtos.preco | number: '1.2-2' }}</h3>
+
+                <div class="acoes">
+                    <button mat-stroked-button color="primary">
+                        <mat-icon>add_shopping_cart</mat-icon>
+                        Adicionar ao carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>

@@ -9,10 +9,14 @@ import { Produtos } from '../types/produtos.types';
 export class ProdutosService {
   private apiUrl = 'http://localhost:8080/produtos';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getProdutos(): Observable<Produtos[]> {
     return this.http.get<Produtos[]>(this.apiUrl);
+  }
+
+  getProdutoPorId(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 
   criarProduto(produto: Produtos): Observable<Produtos> {
