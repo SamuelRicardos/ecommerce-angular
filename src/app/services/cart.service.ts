@@ -27,4 +27,15 @@ export class CartService {
   getCartCount(): number {
     return this.cartItems.value.length;
   }
+
+  getItems(): any[] {
+    return this.cartItems.getValue();
+  }
+
+  removeFromCart(produto: any) {
+    const current = this.cartItems.value;
+    // Remove o produto pelo id (ou pelo que identificar o produto)
+    const updated = current.filter(p => p.id !== produto.id);
+    this.cartItems.next(updated);
+  }
 }

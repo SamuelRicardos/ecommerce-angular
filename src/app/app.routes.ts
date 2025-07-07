@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { DetalhesProdutoComponent } from './components/detalhes-produto-component/detalhes-produto-component.component';
+import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
     {
@@ -26,4 +27,8 @@ export const routes: Routes = [
         path: 'produto/:id',
         component: DetalhesProdutoComponent
     },
+    {
+        path: 'cart',
+        component: CartComponent
+    }
 ];

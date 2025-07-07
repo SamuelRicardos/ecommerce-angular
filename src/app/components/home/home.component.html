@@ -58,7 +58,7 @@
     </button>
   </mat-form-field>
 
-  <button mat-icon-button class="icon-button" aria-label="Carrinho">
+  <button mat-icon-button class="icon-button" aria-label="Carrinho" [routerLink]="'cart'">
     <mat-icon matBadge="{{ cartCount }}" matBadgeColor="warn" matBadgeHidden="{{ cartCount === 0 }}">
       shopping_cart
     </mat-icon>

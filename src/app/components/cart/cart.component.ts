@@ -1,0 +1,91 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { RouterModule, Router } from '@angular/router';
+import { CartService } from '../../services/cart.service';
+import { MatBadge } from '@angular/material/badge';
+
+@Component({
+  selector: 'app-cart',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
+    FormsModule,
+    RouterModule,
+    MatBadge
+  ],
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.scss']
+})
+export class CartComponent implements OnInit {
+
+comprarAgora(produto: any) {
+  this.router.navigate(['/checkout', produto.id]);
+}
+
+removerDoCarrinho(produto: any) {
+  this.cartService.removeFromCart(produto);
+}
+
+  produtos: any[] = [];
+  categorias: string[] = [];
+  searchTerm = '';
+    cartCount = 0;
+
+  constructor(
+    private cartService: CartService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.cartService.cartItems$.subscribe(items => {
+      this.produtos = items;
+    });
+  }
+
+  irParaLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  limparFiltro() {
+    this.produtos = [...this.cartService.getItems()];
+  }
+
+  filtrarPorCategoria(categoria: string) {
+    this.produtos = this.cartService.getItems().filter(p =>
+      p.categorias?.includes(categoria)
+    );
+  }
+
+  onSearchChange() {
+    const termo = this.searchTerm.trim().toLowerCase();
+    if (termo === '') {
+      this.limparFiltro();
+    } else {
+      this.produtos = this.cartService.getItems().filter(p =>
+        p.nome.toLowerCase().includes(termo)
+      );
+    }
+  }
+
+  clearSearch() {
+    this.searchTerm = '';
+    this.onSearchChange();
+  }
+}

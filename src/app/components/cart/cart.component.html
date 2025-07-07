@@ -1,0 +1,120 @@
+<mat-toolbar color="primary" class="header">
+    <!-- Menu hamburguer: só aparece no mobile -->
+    <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menuMobile">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <span class="logo">
+        <mat-icon class="logo-icon">storefront</mat-icon>
+        ShopPrime
+    </span>
+
+
+    <!-- Menu dropdown no mobile -->
+    <mat-menu #menuMobile="matMenu">
+        <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
+            {{ c }}
+        </button>
+        <button mat-menu-item (click)="limparFiltro()">Produtos</button>
+        <button mat-menu-item>Mais vendidos</button>
+        <button mat-menu-item>Novidades</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+            <mat-icon>search</mat-icon>
+            <span>Pesquisar</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>shopping_cart</mat-icon>
+            <span>Carrinho</span>
+        </button>
+
+        <button mat-menu-item (click)="irParaLogin()">
+            <mat-icon>login</mat-icon>
+            <span>Login</span>
+        </button>
+    </mat-menu>
+
+    <!-- Links visíveis no desktop -->
+    <div class="nav-links">
+        <mat-menu #categoriasMenu="matMenu">
+            <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
+                {{ c }}
+            </button>
+        </mat-menu>
+
+        <a class="nav-item" [matMenuTriggerFor]="categoriasMenu">Categorias</a>
+        <a class="nav-item">Mais vendidos</a>
+        <a class="nav-item">Novidades</a>
+        <a class="nav-item" (click)="limparFiltro()">Produtos</a>
+    </div>
+
+    <span class="spacer"></span>
+
+    <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Pesquisar produtos" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
+        <button mat-icon-button matSuffix aria-label="Limpar busca" *ngIf="searchTerm" (click)="clearSearch()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <button mat-icon-button class="icon-button" aria-label="Carrinho" [routerLink]="'cart'">
+        <mat-icon matBadge="{{ cartCount }}" matBadgeColor="warn" matBadgeHidden="{{ cartCount === 0 }}">
+            shopping_cart
+        </mat-icon>
+    </button>
+
+    <button mat-stroked-button color="primary" (click)="irParaLogin()">Login</button>
+</mat-toolbar>
+
+<!-- Conteúdo principal -->
+<main class="main-container">
+    <section *ngIf="produtos.length > 0; else carrinhoVazio">
+        <h2 class="title-main carrinho-titulo">Produtos no seu carrinho</h2>
+
+        <div class="produtos-list">
+            <mat-card class="produto-card-list" *ngFor="let produto of produtos">
+                <div class="item-wrapper">
+                    <div class="imagem-wrapper">
+                        <img *ngIf="produto.imagemUrl" [src]="produto.imagemUrl" alt="{{ produto.nome }}"
+                            class="imagem-produto-pequena" />
+                    </div>
+
+                    <div class="info-produto">
+                        <h3 class="produto-nome-pequeno">{{ produto.nome }}</h3>
+
+                        <div class="produto-estrelas-pequeno">
+                            <mat-icon *ngFor="let star of [1,2,3,4,5]">star</mat-icon>
+                        </div>
+
+                        <p class="produto-preco-pequeno">R$ {{ produto.preco | number: '1.2-2' }}</p>
+                    </div>
+
+                    <div class="acoes-produto">
+                        <button mat-icon-button color="warn" (click)="removerDoCarrinho(produto)"
+                            aria-label="Remover produto">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="comprarAgora(produto)"
+                            aria-label="Comprar agora">
+                            <mat-icon>shopping_cart_checkout</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </section>
+
+    <ng-template #carrinhoVazio>
+        <div class="carrinho-vazio">
+            <h2>Seu carrinho está vazio 😢</h2>
+            <button mat-raised-button color="primary" routerLink="/">
+                Voltar para loja
+            </button>
+        </div>
+    </ng-template>
+</main>
+
+<mat-toolbar class="footer">
+    <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
+</mat-toolbar>
