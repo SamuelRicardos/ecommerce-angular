@@ -89,6 +89,18 @@
                             </div>
 
                             <p class="produto-preco-pequeno">R$ {{ produto.preco | number: '1.2-2' }}</p>
+
+                            <div class="quantidade-wrapper">
+                                <button mat-icon-button class="quantidade-btn" (click)="diminuirQuantidade(produto)">
+                                    <mat-icon>remove</mat-icon>
+                                </button>
+
+                                <span class="quantidade">{{ produto.quantidade }}</span>
+
+                                <button mat-icon-button class="quantidade-btn" (click)="aumentarQuantidade(produto)">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="acoes-produto">

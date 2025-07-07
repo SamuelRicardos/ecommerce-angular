@@ -35,27 +35,42 @@ import { MatBadge } from '@angular/material/badge';
 })
 export class CartComponent implements OnInit {
 
-comprarAgora(produto: any) {
-  this.router.navigate(['/checkout', produto.id]);
-}
+  comprarAgora(produto: any) {
+    this.router.navigate(['/checkout', produto.id]);
+  }
 
-removerDoCarrinho(produto: any) {
-  this.cartService.removeFromCart(produto);
-}
+  aumentarQuantidade(produto: any) {
+    produto.quantidade = (produto.quantidade || 1) + 1;
+  }
+
+  diminuirQuantidade(produto: any) {
+    if (produto.quantidade && produto.quantidade > 1) {
+      produto.quantidade--;
+    } else {
+      this.removerDoCarrinho(produto);
+    }
+  }
+
+  removerDoCarrinho(produto: any) {
+    this.cartService.removeFromCart(produto);
+  }
 
   produtos: any[] = [];
   categorias: string[] = [];
   searchTerm = '';
-    cartCount = 0;
+  cartCount = 0;
 
   constructor(
     private cartService: CartService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe(items => {
-      this.produtos = items;
+      this.produtos = items.map(p => ({
+        ...p,
+        quantidade: p.quantidade || 1 // valor default
+      }));
     });
   }
 

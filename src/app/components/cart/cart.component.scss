@@ -168,6 +168,38 @@
   color: #1976d2;
 }
 
+.quantidade-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.quantidade {
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+  color: #333;
+}
+
+.quantidade-btn {
+  background-color: #f1f1f1;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.quantidade-btn mat-icon {
+  font-size: 25px;
+  color: #1976d2;
+}
+
+.quantidade-btn:hover {
+  background-color: #e0e0e0;
+}
+
 .acoes-produto {
   display: flex;
   gap: 8px;
