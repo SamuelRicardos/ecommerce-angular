@@ -34,7 +34,6 @@ export class CartService {
 
   removeFromCart(produto: any) {
     const current = this.cartItems.value;
-    // Remove o produto pelo id (ou pelo que identificar o produto)
     const updated = current.filter(p => p.id !== produto.id);
     this.cartItems.next(updated);
   }

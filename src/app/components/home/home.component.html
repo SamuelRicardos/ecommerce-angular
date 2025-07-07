@@ -1,118 +1,122 @@
-<mat-toolbar color="primary" class="header">
-  <!-- Menu hamburguer: só aparece no mobile -->
-  <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menuMobile">
-    <mat-icon>menu</mat-icon>
-  </button>
-
-  <span class="logo">
-    <mat-icon class="logo-icon">storefront</mat-icon>
-    ShopPrime
-  </span>
+<div class="container-layout">
 
 
-  <!-- Menu dropdown no mobile -->
-  <mat-menu #menuMobile="matMenu">
-    <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
-      {{ c }}
-    </button>
-    <button mat-menu-item (click)="limparFiltro()">Produtos</button>
-    <button mat-menu-item>Mais vendidos</button>
-    <button mat-menu-item>Novidades</button>
-    <mat-divider></mat-divider>
-    <button mat-menu-item>
-      <mat-icon>search</mat-icon>
-      <span>Pesquisar</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>shopping_cart</mat-icon>
-      <span>Carrinho</span>
+  <mat-toolbar color="primary" class="header">
+    <!-- Menu hamburguer: só aparece no mobile -->
+    <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menuMobile">
+      <mat-icon>menu</mat-icon>
     </button>
 
-    <button mat-menu-item (click)="irParaLogin()">
-      <mat-icon>login</mat-icon>
-      <span>Login</span>
-    </button>
-  </mat-menu>
+    <span class="logo">
+      <mat-icon class="logo-icon">storefront</mat-icon>
+      ShopPrime
+    </span>
 
-  <!-- Links visíveis no desktop -->
-  <div class="nav-links">
-    <mat-menu #categoriasMenu="matMenu">
+
+    <!-- Menu dropdown no mobile -->
+    <mat-menu #menuMobile="matMenu">
       <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
         {{ c }}
       </button>
+      <button mat-menu-item (click)="limparFiltro()">Produtos</button>
+      <button mat-menu-item>Mais vendidos</button>
+      <button mat-menu-item>Novidades</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>search</mat-icon>
+        <span>Pesquisar</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Carrinho</span>
+      </button>
+
+      <button mat-menu-item (click)="irParaLogin()">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </button>
     </mat-menu>
 
-    <a class="nav-item" [matMenuTriggerFor]="categoriasMenu">Categorias</a>
-    <a class="nav-item">Mais vendidos</a>
-    <a class="nav-item">Novidades</a>
-    <a class="nav-item" (click)="limparFiltro()">Produtos</a>
-  </div>
+    <!-- Links visíveis no desktop -->
+    <div class="nav-links">
+      <mat-menu #categoriasMenu="matMenu">
+        <button mat-menu-item *ngFor="let c of categorias" (click)="filtrarPorCategoria(c)">
+          {{ c }}
+        </button>
+      </mat-menu>
 
-  <span class="spacer"></span>
-
-  <mat-form-field appearance="outline" class="search-field">
-    <mat-icon matPrefix>search</mat-icon>
-    <input matInput placeholder="Pesquisar produtos" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
-    <button mat-icon-button matSuffix aria-label="Limpar busca" *ngIf="searchTerm" (click)="clearSearch()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-
-  <button mat-icon-button class="icon-button" aria-label="Carrinho" [routerLink]="'cart'">
-    <mat-icon matBadge="{{ cartCount }}" matBadgeColor="warn" matBadgeHidden="{{ cartCount === 0 }}">
-      shopping_cart
-    </mat-icon>
-  </button>
-
-  <button mat-stroked-button color="primary" (click)="irParaLogin()">Login</button>
-</mat-toolbar>
-
-<main class="main-container">
-  <!-- Banner -->
-  <section class="carousel">
-    <div class="slides" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
-      <div class="slide" *ngFor="let banner of banners">
-        <div class="banner" [style.backgroundImage]="'url(' + banner.image + ')'">
-          <h1 class="banner-title">{{ banner.title }}</h1>
-        </div>
-      </div>
+      <a class="nav-item" [matMenuTriggerFor]="categoriasMenu">Categorias</a>
+      <a class="nav-item">Mais vendidos</a>
+      <a class="nav-item">Novidades</a>
+      <a class="nav-item" (click)="limparFiltro()">Produtos</a>
     </div>
 
-    <button class="nav left" (click)="prevSlide()">‹</button>
-    <button class="nav right" (click)="nextSlide()">›</button>
-  </section>
+    <span class="spacer"></span>
 
-  <!-- Produtos -->
-  <section class="section_produtos" *ngFor="let categoria of categorias">
-    <ng-container *ngIf="getProdutosPorCategoria(categoria).length > 0">
-      <h2 class="categoria-titulo">{{ categoria }}</h2>
-      <div class="produtos-grid">
-        <mat-card class="produto-card" [routerLink]="['/produto', p.id]"
-          *ngFor="let p of getProdutosPorCategoria(categoria)">
-          <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Pesquisar produtos" [(ngModel)]="searchTerm" (input)="onSearchChange()" />
+      <button mat-icon-button matSuffix aria-label="Limpar busca" *ngIf="searchTerm" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
 
-          <mat-card-content>
-            <h3 class="produto-nome">{{ p.nome }}</h3>
+    <button mat-icon-button class="icon-button" aria-label="Carrinho" [routerLink]="'cart'">
+      <mat-icon matBadge="{{ cartCount }}" matBadgeColor="warn" matBadgeHidden="{{ cartCount === 0 }}">
+        shopping_cart
+      </mat-icon>
+    </button>
 
-            <div class="produto-estrelas">
-              <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
-            </div>
+    <button mat-stroked-button color="primary" (click)="irParaLogin()">Login</button>
+  </mat-toolbar>
 
-            <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
-          </mat-card-content>
-
-          <mat-card-actions align="end">
-            <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho"
-              (click)="adicionarAoCarrinho(p); $event.stopPropagation();">
-              <mat-icon>add_shopping_cart</mat-icon>
-            </button>
-          </mat-card-actions>
-        </mat-card>
+  <main class="main-container">
+    <!-- Banner -->
+    <section class="carousel">
+      <div class="slides" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
+        <div class="slide" *ngFor="let banner of banners">
+          <div class="banner" [style.backgroundImage]="'url(' + banner.image + ')'">
+            <h1 class="banner-title">{{ banner.title }}</h1>
+          </div>
+        </div>
       </div>
-    </ng-container>
-  </section>
-</main>
 
-<mat-toolbar color="primary" class="footer">
-  <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
-</mat-toolbar>
+      <button class="nav left" (click)="prevSlide()">‹</button>
+      <button class="nav right" (click)="nextSlide()">›</button>
+    </section>
+
+    <!-- Produtos -->
+    <section class="section_produtos" *ngFor="let categoria of categorias">
+      <ng-container *ngIf="getProdutosPorCategoria(categoria).length > 0">
+        <h2 class="categoria-titulo">{{ categoria }}</h2>
+        <div class="produtos-grid">
+          <mat-card class="produto-card" [routerLink]="['/produto', p.id]"
+            *ngFor="let p of getProdutosPorCategoria(categoria)">
+            <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
+
+            <mat-card-content>
+              <h3 class="produto-nome">{{ p.nome }}</h3>
+
+              <div class="produto-estrelas">
+                <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
+              </div>
+
+              <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+              <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho"
+                (click)="adicionarAoCarrinho(p); $event.stopPropagation();">
+                <mat-icon>add_shopping_cart</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </ng-container>
+
+    </section>
+  </main>
+  <mat-toolbar color="primary" class="footer">
+    <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
+  </mat-toolbar>
+</div>

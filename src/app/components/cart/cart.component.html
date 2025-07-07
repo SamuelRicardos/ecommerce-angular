@@ -73,35 +73,40 @@
         <h2 class="title-main carrinho-titulo">Produtos no seu carrinho</h2>
 
         <div class="produtos-list">
-            <mat-card class="produto-card-list" *ngFor="let produto of produtos">
-                <div class="item-wrapper">
-                    <div class="imagem-wrapper">
-                        <img *ngIf="produto.imagemUrl" [src]="produto.imagemUrl" alt="{{ produto.nome }}"
-                            class="imagem-produto-pequena" />
-                    </div>
-
-                    <div class="info-produto">
-                        <h3 class="produto-nome-pequeno">{{ produto.nome }}</h3>
-
-                        <div class="produto-estrelas-pequeno">
-                            <mat-icon *ngFor="let star of [1,2,3,4,5]">star</mat-icon>
+            <ng-container *ngFor="let produto of produtos; let i = index">
+                <mat-card class="produto-card-list">
+                    <div class="item-wrapper">
+                        <div class="imagem-wrapper">
+                            <img *ngIf="produto.imagemUrl" [src]="produto.imagemUrl" alt="{{ produto.nome }}"
+                                class="imagem-produto-pequena" />
                         </div>
 
-                        <p class="produto-preco-pequeno">R$ {{ produto.preco | number: '1.2-2' }}</p>
-                    </div>
+                        <div class="info-produto">
+                            <h3 class="produto-nome-pequeno">{{ produto.nome }}</h3>
 
-                    <div class="acoes-produto">
-                        <button mat-icon-button color="warn" (click)="removerDoCarrinho(produto)"
-                            aria-label="Remover produto">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <button mat-icon-button color="primary" (click)="comprarAgora(produto)"
-                            aria-label="Comprar agora">
-                            <mat-icon>shopping_cart_checkout</mat-icon>
-                        </button>
+                            <div class="produto-estrelas-pequeno">
+                                <mat-icon *ngFor="let star of [1,2,3,4,5]">star</mat-icon>
+                            </div>
+
+                            <p class="produto-preco-pequeno">R$ {{ produto.preco | number: '1.2-2' }}</p>
+                        </div>
+
+                        <div class="acoes-produto">
+                            <button mat-icon-button color="warn" (click)="removerDoCarrinho(produto)"
+                                aria-label="Remover produto">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" (click)="comprarAgora(produto)"
+                                aria-label="Comprar agora">
+                                <mat-icon>shopping_cart_checkout</mat-icon>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </mat-card>
+                </mat-card>
+
+                <!-- Divisória -->
+                <mat-divider *ngIf="i < produtos.length - 1"></mat-divider>
+            </ng-container>
         </div>
     </section>
 
@@ -114,7 +119,3 @@
         </div>
     </ng-template>
 </main>
-
-<mat-toolbar class="footer">
-    <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
-</mat-toolbar>
