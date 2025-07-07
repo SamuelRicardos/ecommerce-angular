@@ -27,7 +27,7 @@
       <mat-icon>shopping_cart</mat-icon>
       <span>Carrinho</span>
     </button>
-    
+
     <button mat-menu-item (click)="irParaLogin()">
       <mat-icon>login</mat-icon>
       <span>Login</span>
@@ -59,7 +59,9 @@
   </mat-form-field>
 
   <button mat-icon-button class="icon-button" aria-label="Carrinho">
-    <mat-icon>shopping_cart</mat-icon>
+    <mat-icon matBadge="{{ cartCount }}" matBadgeColor="warn" matBadgeHidden="{{ cartCount === 0 }}">
+      shopping_cart
+    </mat-icon>
   </button>
 
   <button mat-stroked-button color="primary" (click)="irParaLogin()">Login</button>
@@ -85,7 +87,8 @@
     <ng-container *ngIf="getProdutosPorCategoria(categoria).length > 0">
       <h2 class="categoria-titulo">{{ categoria }}</h2>
       <div class="produtos-grid">
-        <mat-card class="produto-card" [routerLink]="['/produto', p.id]" *ngFor="let p of getProdutosPorCategoria(categoria)">
+        <mat-card class="produto-card" [routerLink]="['/produto', p.id]"
+          *ngFor="let p of getProdutosPorCategoria(categoria)">
           <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
 
           <mat-card-content>
@@ -99,7 +102,8 @@
           </mat-card-content>
 
           <mat-card-actions align="end">
-            <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho">
+            <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho"
+              (click)="adicionarAoCarrinho(p); $event.stopPropagation();">
               <mat-icon>add_shopping_cart</mat-icon>
             </button>
           </mat-card-actions>

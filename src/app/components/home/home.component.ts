@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatBadgeModule} from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
 import { HomeService } from '../../services/home.service';
 import { Produtos } from '../../types/produtos.types';
@@ -12,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterModule } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +29,8 @@ import { Router, RouterModule } from '@angular/router';
     MatFormField,
     MatInputModule,
     MatMenuModule,
-    RouterModule
+    RouterModule,
+    MatBadgeModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
   categorias: string[] = [];
   searchTerm = '';
   currentSlide = 0;
+  cartCount = 0;
 
   banners = [
     {
@@ -54,12 +58,16 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor(private homeService: HomeService, private router: Router) { }
+  constructor(
+    private homeService: HomeService,
+    private router: Router,
+    private cartService: CartService) { }
 
   ngOnInit(): void {
     this.carregarProdutos();
     this.carregarProdutos();
     setInterval(() => this.nextSlide(), 4000);
+    this.itemsCarrinho()
   }
 
   carregarProdutos(): void {
@@ -93,6 +101,16 @@ export class HomeComponent implements OnInit {
       );
     }
 
+  }
+
+  itemsCarrinho() {
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartCount = items.length;
+    });
+  }
+
+  adicionarAoCarrinho(produto: any) {
+    this.cartService.addToCart(produto);
   }
 
   limparFiltro() {
