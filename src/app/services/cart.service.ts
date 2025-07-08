@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
+
   private readonly storageKey = 'cart_items';
   private cartItems = new BehaviorSubject<any[]>(this.loadCartFromStorage());
   cartItems$ = this.cartItems.asObservable();
@@ -36,5 +37,10 @@ export class CartService {
     const current = this.cartItems.value;
     const updated = current.filter(p => p.id !== produto.id);
     this.cartItems.next(updated);
+  }
+
+  clearCart() {
+    this.cartItems.next([]);
+    localStorage.removeItem(this.storageKey);
   }
 }
