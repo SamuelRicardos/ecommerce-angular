@@ -244,6 +244,27 @@
   margin-bottom: 24px;
 }
 
+.total-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 24px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-top: 1px solid #eee;
+  margin: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+
+.total-texto {
+  margin-right: 12px;
+}
+
+.total-valor {
+  color: #2e7d32;
+}
+
 @media (max-width: 480px) {
   .produto-card-list {
     flex-direction: column;

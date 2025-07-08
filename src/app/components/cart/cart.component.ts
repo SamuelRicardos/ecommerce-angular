@@ -69,7 +69,7 @@ export class CartComponent implements OnInit {
     this.cartService.cartItems$.subscribe(items => {
       this.produtos = items.map(p => ({
         ...p,
-        quantidade: p.quantidade || 1 // valor default
+        quantidade: p.quantidade || 1
       }));
     });
   }
@@ -102,5 +102,12 @@ export class CartComponent implements OnInit {
   clearSearch() {
     this.searchTerm = '';
     this.onSearchChange();
+  }
+
+  calcularTotal(): number {
+    return this.produtos.reduce((acc, produto) => {
+      const quantidade = produto.quantidade || 1;
+      return acc + produto.preco * quantidade;
+    }, 0);
   }
 }
