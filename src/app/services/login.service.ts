@@ -8,8 +8,10 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  endereco: string;
   token: string;
   email: string;
+  nome: string;
 }
 
 @Injectable({

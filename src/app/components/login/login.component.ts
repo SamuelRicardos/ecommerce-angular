@@ -47,7 +47,6 @@ export class LoginComponent {
 
     this.isSubmitting = true;
 
-    // Extrair os valores explicitamente para garantir que são string
     const loginRequest = {
       email: this.loginForm.value.email!,
       senha: this.loginForm.value.senha!
@@ -58,9 +57,11 @@ export class LoginComponent {
         this.isSubmitting = false;
         localStorage.setItem('token', res.token);
         localStorage.setItem('email', res.email);
+        localStorage.setItem('endereco', res.endereco);
+        localStorage.setItem('nome', res.nome)
 
         this.snackBar.open('Login realizado com sucesso!', 'Fechar', { duration: 3000, panelClass: ['snack-success'] });
-        this.router.navigate(['/categorias']);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.isSubmitting = false;
