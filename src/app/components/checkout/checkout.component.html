@@ -30,7 +30,7 @@
 
     <mat-list>
       <mat-list-item *ngFor="let item of itens">
-        {{ item.nome }} — R$ {{ item.preco | number:'1.2-2' }} x {{ item.quantidade }}
+        {{ item.nome }} — R$ {{ item.preco | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }} x {{ item.quantidade }}
       </mat-list-item>
     </mat-list>
 
@@ -38,24 +38,24 @@
 
     <div class="resumo-line">
       <span>Frete e manuseio:</span>
-      <span>R$ {{ frete | number:'1.2-2' }}</span>
+      <span>{{ frete | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
     </div>
 
     <div class="resumo-line">
       <span>Total:</span>
-      <span>R$ {{ total | number:'1.2-2' }}</span>
+      <span>{{ total | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
     </div>
 
     <div class="resumo-line">
       <span>Desconto aplicado:</span>
-      <span>- R$ {{ desconto | number:'1.2-2' }}</span>
+      <span>- {{ desconto | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
     </div>
 
     <mat-divider></mat-divider>
 
     <div class="resumo-total">
       <strong>Total do pedido:</strong>
-      <strong>R$ {{ totalPedido | number:'1.2-2' }}</strong>
+      <strong> {{ totalPedido | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</strong>
     </div>
 
     <button mat-raised-button color="primary" class="finalizar-btn" (click)="finalizarPedido()">

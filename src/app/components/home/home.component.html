@@ -101,7 +101,7 @@
                 <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
               </div>
 
-              <p class="produto-preco">R$ {{ p.preco | number: '1.2-2' }}</p>
+              <p class="produto-preco">{{ p.preco | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</p>
             </mat-card-content>
 
             <mat-card-actions align="end">
