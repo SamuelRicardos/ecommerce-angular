@@ -88,7 +88,8 @@
                                 <mat-icon *ngFor="let star of [1,2,3,4,5]">star</mat-icon>
                             </div>
 
-                            <p class="produto-preco-pequeno">{{ produto.preco | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</p>
+                            <p class="produto-preco-pequeno">{{ produto.preco | currency:'BRL':'symbol':'1.2-2': 'pt-BR'
+                                }}</p>
 
                             <div class="quantidade-wrapper">
                                 <button mat-icon-button class="quantidade-btn" (click)="diminuirQuantidade(produto)">
@@ -132,11 +133,13 @@
     </ng-template>
 
     <div class="total-container" *ngIf="produtos.length > 0">
-        <div class="total-texto">
-            Total:
-        </div>
+
         <div class="total-valor">
-            {{ calcularTotal() | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}
+            Total: {{ calcularTotal() | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}
         </div>
+
+        <button mat-raised-button color="primary" (click)="fecharPedido()">
+            Fechar pedido
+        </button>
     </div>
 </main>

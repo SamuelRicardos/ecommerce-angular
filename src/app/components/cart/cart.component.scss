@@ -247,6 +247,7 @@
 .total-container {
   display: flex;
   justify-content: flex-end;
+  gap: 20px;
   align-items: center;
   padding: 24px;
   font-size: 1.25rem;
@@ -259,10 +260,6 @@
 
 .total-texto {
   margin-right: 12px;
-}
-
-.total-valor {
-  color: #2e7d32;
 }
 
 @media (max-width: 480px) {

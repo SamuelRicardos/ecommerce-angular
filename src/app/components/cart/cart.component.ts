@@ -110,4 +110,13 @@ export class CartComponent implements OnInit {
       return acc + produto.preco * quantidade;
     }, 0);
   }
+
+  fecharPedido() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    this.router.navigate(['/login']);
+  } else {
+    this.router.navigate(['/checkout']);
+  }
+}
 }
