@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatDividerModule } from '@angular/material/divider';
 import { HomeService } from '../../services/home.service';
 import { Produtos } from '../../types/produtos.types';
@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart.service';
+import { HeaderComponent } from '../../shared/header/header.component';
 
 @Component({
   selector: 'app-home',
@@ -26,11 +27,11 @@ import { CartService } from '../../services/cart.service';
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
-    MatFormField,
     MatInputModule,
     MatMenuModule,
     RouterModule,
-    MatBadgeModule
+    MatBadgeModule,
+    HeaderComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -90,17 +91,16 @@ export class HomeComponent implements OnInit {
     return this.produtos.filter(p => p.categorias?.includes(categoria));
   }
 
-  onSearchChange() {
-    const termo = this.searchTerm.trim().toLowerCase();
+  onSearchChange(termo: string) {
+    this.searchTerm = termo.trim().toLowerCase();
 
-    if (termo === '') {
+    if (this.searchTerm === '') {
       this.produtos = this.produtosOriginais;
     } else {
       this.produtos = this.produtosOriginais.filter(p =>
-        p.nome.toLowerCase().includes(termo)
+        p.nome.toLowerCase().includes(this.searchTerm)
       );
     }
-
   }
 
   itemsCarrinho() {
@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit {
 
   clearSearch() {
     this.searchTerm = '';
-    this.onSearchChange();
+    this.onSearchChange(this.searchTerm);
   }
 
   irParaLogin() {

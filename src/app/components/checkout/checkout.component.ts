@@ -51,8 +51,8 @@ export class CheckoutComponent implements OnInit {
       quantidade: item.quantidade || 1
     }));
 
-    const userEmail = localStorage.getItem('email') || '';
-    this.nomeUsuario = userEmail;
+    const userName = localStorage.getItem('nome') || '';
+    this.nomeUsuario = userName;
     
     this.endereco = 'Rua Exemplo, 123, Bairro Centro, Cidade - UF';
   }
