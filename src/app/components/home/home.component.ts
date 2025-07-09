@@ -66,7 +66,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarProdutos();
-    this.carregarProdutos();
     setInterval(() => this.nextSlide(), 4000);
     this.itemsCarrinho()
   }
@@ -90,6 +89,7 @@ export class HomeComponent implements OnInit {
   getProdutosPorCategoria(categoria: string) {
     return this.produtos.filter(p => p.categorias?.includes(categoria));
   }
+  
 
   onSearchChange(termo: string) {
     this.searchTerm = termo.trim().toLowerCase();

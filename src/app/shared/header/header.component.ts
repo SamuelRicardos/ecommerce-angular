@@ -47,7 +47,7 @@ export class HeaderComponent {
 
   clearSearch() {
     this.searchTerm = '';
-    this.clearSearchEvent.emit();
+    this.limparFiltro.emit();
   }
 
   filtrarPorCategoria(categoria: string) {
