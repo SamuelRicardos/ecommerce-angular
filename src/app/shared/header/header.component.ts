@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-header',
@@ -26,11 +27,16 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     RouterModule,
     CommonModule,
+    MatTooltipModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  usuarioLogado = false;
+  nomeUsuario = '';
+
   @Input() categorias: string[] = [];
   @Input() cartCount: number = 0;
   @Input() searchTerm: string = '';
@@ -40,6 +46,11 @@ export class HeaderComponent {
   @Output() irParaLogin = new EventEmitter<void>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() clearSearchEvent = new EventEmitter<void>();
+  @Output() logout = new EventEmitter<void>();
+
+  ngOnInit(): void {
+    this.obterUsuarioLogado()
+  }
 
   onSearchChange() {
     this.searchChange.emit(this.searchTerm);
@@ -52,5 +63,22 @@ export class HeaderComponent {
 
   filtrarPorCategoria(categoria: string) {
     this.categoriaSelecionada.emit(categoria);
+  }
+
+  obterUsuarioLogado() {
+    const nome = localStorage.getItem('nome');
+    if (nome) {
+      this.usuarioLogado = true;
+      this.nomeUsuario = nome;
+    }
+  }
+
+  sair() {
+    localStorage.removeItem('nome');
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    this.usuarioLogado = false;
+    this.nomeUsuario = '';
+    this.logout.emit();
   }
 }

@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
   getProdutosPorCategoria(categoria: string) {
     return this.produtos.filter(p => p.categorias?.includes(categoria));
   }
-  
+
 
   onSearchChange(termo: string) {
     this.searchTerm = termo.trim().toLowerCase();
@@ -125,6 +125,10 @@ export class HomeComponent implements OnInit {
   irParaLogin() {
     this.router.navigate(['/login']);
     console.log("oi")
+  }
+
+  voltarParaHome() {
+    this.router.navigate(['/']);
   }
 
   nextSlide(): void {

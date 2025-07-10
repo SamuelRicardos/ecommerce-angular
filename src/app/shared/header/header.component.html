@@ -57,5 +57,20 @@
     </mat-icon>
   </button>
 
-  <button mat-stroked-button color="primary" (click)="irParaLogin.emit()">Login</button>
+  <ng-container *ngIf="nomeUsuario; else loginButton">
+    <button mat-icon-button [matTooltip]="nomeUsuario">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
+    <button mat-stroked-button color="warn" (click)="sair()">
+      Sair
+    </button>
+  </ng-container>
+
+  <!-- Se não estiver logado, mostra botão de login -->
+  <ng-template #loginButton>
+    <button mat-stroked-button color="primary" (click)="irParaLogin.emit()">
+      Login
+    </button>
+  </ng-template>
 </mat-toolbar>
