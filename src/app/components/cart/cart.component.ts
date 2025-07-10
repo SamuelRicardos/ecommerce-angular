@@ -11,9 +11,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule, Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
-import { MatBadge } from '@angular/material/badge';
 import { HeaderComponent } from "../../shared/header/header.component";
 import { Produtos } from '../../types/produtos.types';
+import { ProdutosService } from '../../services/produtos.service';
 
 @Component({
   selector: 'app-cart',
@@ -42,20 +42,17 @@ export class CartComponent implements OnInit {
   categorias: string[] = [];
   searchTerm = '';
   cartCount = 0;
+  estoqueMap = new Map<string, number>();
 
   constructor(
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private produtoService: ProdutosService
   ) { }
 
   ngOnInit(): void {
-    this.cartService.cartItems$.subscribe(items => {
-      this.produtos = items.map(p => ({
-        ...p,
-        quantidade: p.quantidade || 1
-      }));
-    });
-
+    this.carregarProdutosComEstoque();
+    this.carregarProdutosDoCarrinho()
     this.itemsCarrinho()
   }
 
@@ -63,17 +60,48 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/checkout', produto.id]);
   }
 
-  aumentarQuantidade(produto: any) {
-    produto.quantidade = (produto.quantidade || 1) + 1;
+aumentarQuantidade(produto: any) {
+  const estoqueDisponivel = this.estoqueMap.get(produto.id!) || 0;
+
+  if (produto.quantidade < estoqueDisponivel) {
+    produto.quantidade++;
+    this.cartService.updateCart(produto);
+  }
+}
+
+diminuirQuantidade(produto: any) {
+  if (produto.quantidade > 1) {
+    produto.quantidade--;
+    this.cartService.updateCart(produto);
+  } else {
+    this.removerDoCarrinho(produto);
+  }
+}
+
+  carregarProdutosDoCarrinho(): void {
+    this.cartService.cartItems$.subscribe(items => {
+      this.produtos = items.map(p => ({
+        ...p,
+        quantidade: p.quantidade || 1
+      }));
+    });
   }
 
-  diminuirQuantidade(produto: any) {
-    if (produto.quantidade && produto.quantidade > 1) {
-      produto.quantidade--;
-    } else {
-      this.removerDoCarrinho(produto);
-    }
-  }
+  carregarProdutosComEstoque(): void {
+  this.cartService.cartItems$.subscribe(items => {
+    this.produtos = items.map(p => ({
+      ...p,
+      quantidade: p.quantidade || 1
+    }));
+
+    // Chamar API e montar mapa de estoque
+    this.produtoService.getProdutos().subscribe(apiProdutos => {
+      apiProdutos.forEach(p => {
+        return this.estoqueMap.set(p.id!, p.quantidadeEstoque!); // ou o nome do campo de estoque na API
+      });
+    });
+  });
+}
 
   removerDoCarrinho(produto: any) {
     this.cartService.removeFromCart(produto);
@@ -120,12 +148,15 @@ export class CartComponent implements OnInit {
     this.onSearchChange(this.searchTerm);
   }
 
-  calcularTotal(): number {
-    return this.produtos.reduce((acc, produto) => {
-      const quantidade = produto.quantidade || 1;
-      return acc + produto.preco * quantidade;
-    }, 0);
-  }
+calcularTotal(): number {
+  return this.produtos.reduce((total, produto) => {
+    const carrinhoQtd = produto.quantidade || 1;
+    const estoqueQtd = this.estoqueMap.get(produto.id!) || 0;
+    const quantidadeValida = Math.min(carrinhoQtd, estoqueQtd);
+
+    return total + produto.preco * quantidadeValida;
+  }, 0);
+}
 
   fecharPedido() {
     const token = localStorage.getItem('token');

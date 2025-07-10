@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -48,7 +49,13 @@ export class HeaderComponent implements OnInit {
   @Output() clearSearchEvent = new EventEmitter<void>();
   @Output() logout = new EventEmitter<void>();
 
+  constructor(private cartService: CartService) { }
+
   ngOnInit(): void {
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartCount = items.length;
+    });
+
     this.obterUsuarioLogado()
   }
 
