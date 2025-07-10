@@ -12,6 +12,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule, Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { MatBadge } from '@angular/material/badge';
+import { HeaderComponent } from "../../shared/header/header.component";
+import { Produtos } from '../../types/produtos.types';
 
 @Component({
   selector: 'app-cart',
@@ -28,12 +30,34 @@ import { MatBadge } from '@angular/material/badge';
     MatMenuModule,
     FormsModule,
     RouterModule,
-    MatBadge
+    HeaderComponent
   ],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+
+  produtosOriginais: Produtos[] = [];
+  produtos: any[] = [];
+  categorias: string[] = [];
+  searchTerm = '';
+  cartCount = 0;
+
+  constructor(
+    private cartService: CartService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.cartService.cartItems$.subscribe(items => {
+      this.produtos = items.map(p => ({
+        ...p,
+        quantidade: p.quantidade || 1
+      }));
+    });
+
+    this.itemsCarrinho()
+  }
 
   comprarAgora(produto: any) {
     this.router.navigate(['/checkout', produto.id]);
@@ -55,25 +79,6 @@ export class CartComponent implements OnInit {
     this.cartService.removeFromCart(produto);
   }
 
-  produtos: any[] = [];
-  categorias: string[] = [];
-  searchTerm = '';
-  cartCount = 0;
-
-  constructor(
-    private cartService: CartService,
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.cartService.cartItems$.subscribe(items => {
-      this.produtos = items.map(p => ({
-        ...p,
-        quantidade: p.quantidade || 1
-      }));
-    });
-  }
-
   irParaLogin() {
     this.router.navigate(['/login']);
   }
@@ -88,20 +93,31 @@ export class CartComponent implements OnInit {
     );
   }
 
-  onSearchChange() {
-    const termo = this.searchTerm.trim().toLowerCase();
-    if (termo === '') {
-      this.limparFiltro();
+  onSearchChange(termo: string) {
+    this.searchTerm = termo.trim().toLowerCase();
+
+    if (this.searchTerm === '') {
+      this.produtos = this.produtosOriginais;
     } else {
-      this.produtos = this.cartService.getItems().filter(p =>
-        p.nome.toLowerCase().includes(termo)
+      this.produtos = this.produtosOriginais.filter(p =>
+        p.nome.toLowerCase().includes(this.searchTerm)
       );
     }
   }
 
+  itemsCarrinho() {
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartCount = items.length;
+    });
+  }
+
+  voltarParaHome() {
+    this.router.navigate(['/']);
+  }
+
   clearSearch() {
     this.searchTerm = '';
-    this.onSearchChange();
+    this.onSearchChange(this.searchTerm);
   }
 
   calcularTotal(): number {
@@ -112,11 +128,11 @@ export class CartComponent implements OnInit {
   }
 
   fecharPedido() {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    this.router.navigate(['/login']);
-  } else {
-    this.router.navigate(['/checkout']);
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+    } else {
+      this.router.navigate(['/checkout']);
+    }
   }
-}
 }
