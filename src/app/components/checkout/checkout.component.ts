@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-checkout',
@@ -26,6 +27,7 @@ import { CartService } from '../../services/cart.service';
     MatButtonModule,
     MatListModule,
     MatDividerModule,
+    MatIconModule
   ],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
@@ -34,6 +36,7 @@ export class CheckoutComponent implements OnInit {
   nomeUsuario = '';
   endereco = '';
   metodoPagamento = 'cartao';
+  pedidoFinalizado: boolean = false
 
   itens: any[] = [];
 
@@ -70,8 +73,11 @@ export class CheckoutComponent implements OnInit {
       alert('Por favor, preencha seu nome e endereço.');
       return;
     }
-    alert(`Pedido finalizado com sucesso! Total: R$ ${this.totalPedido.toFixed(2)}`);
-    this.cartService.clearCart();  // Limpa o carrinho após finalizar
+    this.pedidoFinalizado = true
+    this.cartService.clearCart();
+  }
+  
+  voltarParaHome() {
     this.router.navigate(['/']);
   }
 }

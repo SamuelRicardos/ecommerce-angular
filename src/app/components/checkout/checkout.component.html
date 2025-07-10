@@ -3,63 +3,80 @@
 </mat-toolbar>
 
 <main class="checkout-container">
-  <mat-card>
-    <h2>Informações do Usuário</h2>
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Nome</mat-label>
-      <input matInput placeholder="Seu nome" [(ngModel)]="nomeUsuario" />
-    </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Endereço</mat-label>
-      <textarea matInput placeholder="Endereço fictício" [(ngModel)]="endereco"></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Método de pagamento</mat-label>
-      <mat-select [(ngModel)]="metodoPagamento">
-        <mat-option value="cartao">Cartão de Crédito</mat-option>
-        <mat-option value="boleto">Boleto Bancário</mat-option>
-        <mat-option value="pix">PIX</mat-option>
-      </mat-select>
-    </mat-form-field>
+<div class="pedido-finalizado-container" *ngIf="pedidoFinalizado">
+  <mat-card class="pedido-finalizado-card">
+    <div class="sucesso-conteudo">
+      <mat-icon color="primary" class="icone-sucesso">check_circle</mat-icon>
+      <h2>Pedido realizado com sucesso</h2>
+      <p>Seu pedido está a caminho. Obrigado pela compra, {{ nomeUsuario }}!</p>
+      <button mat-raised-button color="primary" (click)="voltarParaHome()">
+        Voltar para loja
+      </button>
+    </div>
   </mat-card>
+</div>
 
-  <mat-card>
-    <h2>Resumo do Pedido</h2>
+  <!-- Tela de checkout padrão -->
+  <ng-container *ngIf="!pedidoFinalizado">
+    <mat-card>
+      <h2>Informações do Usuário</h2>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Seu nome" [(ngModel)]="nomeUsuario" />
+      </mat-form-field>
 
-    <mat-list>
-      <mat-list-item *ngFor="let item of itens">
-        {{ item.nome }} — R$ {{ item.preco | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }} x {{ item.quantidade }}
-      </mat-list-item>
-    </mat-list>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Endereço</mat-label>
+        <textarea matInput placeholder="Endereço fictício" [(ngModel)]="endereco"></textarea>
+      </mat-form-field>
 
-    <mat-divider></mat-divider>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Método de pagamento</mat-label>
+        <mat-select [(ngModel)]="metodoPagamento">
+          <mat-option value="cartao">Cartão de Crédito</mat-option>
+          <mat-option value="boleto">Boleto Bancário</mat-option>
+          <mat-option value="pix">PIX</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card>
 
-    <div class="resumo-line">
-      <span>Frete e manuseio:</span>
-      <span>{{ frete | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
-    </div>
+    <mat-card>
+      <h2>Resumo do Pedido</h2>
 
-    <div class="resumo-line">
-      <span>Total:</span>
-      <span>{{ total | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
-    </div>
+      <mat-list>
+        <mat-list-item *ngFor="let item of itens">
+          {{ item.nome }} — R$ {{ item.preco | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }} x {{ item.quantidade }}
+        </mat-list-item>
+      </mat-list>
 
-    <div class="resumo-line">
-      <span>Desconto aplicado:</span>
-      <span>- {{ desconto | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
-    </div>
+      <mat-divider></mat-divider>
 
-    <mat-divider></mat-divider>
+      <div class="resumo-line">
+        <span>Frete e manuseio:</span>
+        <span>{{ frete | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
+      </div>
 
-    <div class="resumo-total">
-      <strong>Total do pedido:</strong>
-      <strong> {{ totalPedido | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</strong>
-    </div>
+      <div class="resumo-line">
+        <span>Total:</span>
+        <span>{{ total | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
+      </div>
 
-    <button mat-raised-button color="primary" class="finalizar-btn" (click)="finalizarPedido()">
-      Finalizar Pedido
-    </button>
-  </mat-card>
+      <div class="resumo-line">
+        <span>Desconto aplicado:</span>
+        <span>- {{ desconto | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="resumo-total">
+        <strong>Total do pedido:</strong>
+        <strong> {{ totalPedido | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</strong>
+      </div>
+
+      <button mat-raised-button color="primary" class="finalizar-btn" (click)="finalizarPedido()">
+        Finalizar Pedido
+      </button>
+    </mat-card>
+  </ng-container>
 </main>
