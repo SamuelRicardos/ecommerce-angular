@@ -1,27 +1,36 @@
-# 🛒 E-commerce CRUD com Angular 17, TailwindCSS e Spring Boot
+# 🛒 E-commerce com Angular 17, Angular Material e Spring Boot
 
-Este projeto é um sistema simples de gerenciamento de produtos (CRUD) para um e-commerce, desenvolvido com Angular 17 no front-end, TailwindCSS para estilização e Spring Boot com MongoDB no back-end.
+Este projeto é uma aplicação completa de e-commerce com funcionalidades de CRUD de produtos, carrinho de compras, checkout com validação e autenticação de usuários. O front-end foi desenvolvido com Angular 17 e Angular Material, enquanto o back-end utiliza Spring Boot com MongoDB.
 
-Link do repositório back-end: https://github.com/SamuelRicardos/ecommerce-java
+🔗 Repositório do back-end: [https://github.com/SamuelRicardos/ecommerce-java](https://github.com/SamuelRicardos/ecommerce-java)
 
 ---
 
 ## ✨ Funcionalidades
 
-- 📦 Cadastro de produtos
-- 📝 Edição de produtos
-- 🗑️ Remoção de produtos
-- 🔎 Listagem de todos os produtos
-- ⚙️ Integração com API REST em Java (Spring Boot)
-- 🧩 Armazenamento dos dados no MongoDB
+- 📦 Cadastro, edição e exclusão de produtos
+- 🔎 Listagem e filtro de produtos por categoria
+- 🛒 Carrinho de compras com persistência em localStorage
+- 📊 Quantidade dos produtos sincronizada com o estoque do servidor
+- 💰 Cálculo automático do total de produtos baseado na disponibilidade em estoque
+- 🔐 Login com validação de token JWT
+- 📦 Tela de checkout com:
+  - Nome do usuário
+  - Endereço
+  - Método de pagamento
+  - Validação de campos
+- ✅ Finalização de pedido com limpeza do carrinho e atualização do cabeçalho
+- 🔄 Atualização dinâmica do número de itens no header
+- 🧩 Integração com API REST (Java Spring Boot)
+- 🗃️ Armazenamento no MongoDB
 
 ---
 
-## 🧰 Tecnologias utilizadas
+## 🧰 Tecnologias Utilizadas
 
 ### Front-end
 - [Angular 17 (Standalone)](https://angular.io/)
-- [TailwindCSS](https://tailwindcss.com/)
+- [Angular Material](https://material.angular.io/)
 - [TypeScript](https://www.typescriptlang.org/)
 
 ### Back-end
@@ -31,14 +40,14 @@ Link do repositório back-end: https://github.com/SamuelRicardos/ecommerce-java
 
 ---
 
-## 🚀 Como rodar o projeto
+## 🚀 Como Rodar o Projeto
 
 ### 🔧 Pré-requisitos
 
 - Node.js (v18+)
-- Angular CLI (`npm install -g @angular/cli`)
+- Angular CLI
 - Java 17
-- MongoDB instalado e rodando localmente
+- MongoDB local ou em nuvem
 
 ---
 
@@ -54,5 +63,5 @@ cd angular-ecommerce
 # Instale as dependências
 npm install
 
-# Inicie o servidor de desenvolvimento
+# Inicie o servidor Angular
 ng serve
