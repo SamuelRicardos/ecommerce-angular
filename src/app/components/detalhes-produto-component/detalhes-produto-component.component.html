@@ -1,0 +1,48 @@
+<app-header
+  [categorias]="categorias"
+  [cartCount]="cartCount"
+  [searchTerm]="searchTerm"
+  (categoriaSelecionada)="filtrarPorCategoria($event)"
+  (limparFiltro)="limparFiltro()"
+  (irParaLogin)="irParaLogin()"
+  (searchChange)="onSearchChange($event)"
+  (clearSearchEvent)="clearSearch()"
+></app-header>
+
+<div *ngIf="produtos" class="produto-container">
+    <mat-card class="produto-card-detalhes">
+        <div class="detalhes-layout">
+            <!-- Imagem do Produto -->
+            <div class="imagem-container">
+                <img [src]="produtos.imagemUrl" alt="{{ produtos.nome }}" class="imagem-produto" />
+            </div>
+
+            <!-- Informações do Produto -->
+            <div class="info-container">
+                <h2>{{ produtos.nome }}</h2>
+
+                <div class="avaliacao">
+                    <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]">star</mat-icon>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <p class="descricao">{{ produtos.descricao }}</p>
+
+                <h3 class="preco">R$ {{ produtos.preco | number: '1.2-2' }}</h3>
+
+                <div class="acoes">
+                    <button mat-stroked-button color="primary">
+                        <mat-icon>add_shopping_cart</mat-icon>
+                        Adicionar ao carrinho
+                    </button>
+                    
+                    <button mat-flat-button color="accent">
+                        Comprar agora
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </mat-card>
+</div>

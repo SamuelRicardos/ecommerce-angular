@@ -1,0 +1,68 @@
+.login-wrapper {
+  max-width: 360px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .full-width {
+      width: 100%;
+    }
+
+    button {
+      font-weight: 600;
+      padding: 0.75rem 0;
+      font-size: 1.1rem;
+    }
+  }
+
+  .links-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    .link {
+      font-size: 0.9rem;
+      color: #4a90e2;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .back-button {
+    margin-top: 2rem;
+    align-self: center;
+    max-width: 120px;
+    text-transform: none;
+    font-weight: 500;
+  }
+}
+
+/* Snackbar colors */
+.snack-success {
+  background-color: #4caf50 !important;
+}
+
+.snack-error {
+  background-color: #f44336 !important;
+}

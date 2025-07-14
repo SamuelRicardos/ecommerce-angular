@@ -1,0 +1,65 @@
+<div class="container-layout">
+
+
+<app-header
+  [categorias]="categorias"
+  [cartCount]="cartCount"
+  [searchTerm]="searchTerm"
+  (categoriaSelecionada)="filtrarPorCategoria($event)"
+  (limparFiltro)="limparFiltro()"
+  (irParaLogin)="irParaLogin()"
+  (searchChange)="onSearchChange($event)"
+  (clearSearchEvent)="clearSearch()"
+  (logout)="voltarParaHome()"
+></app-header>
+
+  <main class="main-container">
+    <!-- Banner -->
+    <section class="carousel">
+      <div class="slides" [style.transform]="'translateX(-' + currentSlide * 100 + '%)'">
+        <div class="slide" *ngFor="let banner of banners">
+          <div class="banner" [style.backgroundImage]="'url(' + banner.image + ')'">
+            <h1 class="banner-title">{{ banner.title }}</h1>
+          </div>
+        </div>
+      </div>
+
+      <button class="nav left" (click)="prevSlide()">‹</button>
+      <button class="nav right" (click)="nextSlide()">›</button>
+    </section>
+
+    <!-- Produtos -->
+    <section class="section_produtos" *ngFor="let categoria of categorias">
+      <ng-container *ngIf="getProdutosPorCategoria(categoria).length > 0">
+        <h2 class="categoria-titulo">{{ categoria }}</h2>
+        <div class="produtos-grid">
+          <mat-card class="produto-card" [routerLink]="['/produto', p.id]"
+            *ngFor="let p of getProdutosPorCategoria(categoria)">
+            <img *ngIf="p.imagemUrl" [src]="p.imagemUrl" alt="{{ p.nome }}" class="produto-imagem" />
+
+            <mat-card-content>
+              <h3 class="produto-nome">{{ p.nome }}</h3>
+
+              <div class="produto-estrelas">
+                <mat-icon *ngFor="let star of [1,2,3,4,5]" class="estrela">star</mat-icon>
+              </div>
+
+              <p class="produto-preco">{{ p.preco | currency:'BRL':'symbol':'1.2-2': 'pt-BR' }}</p>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+              <button mat-icon-button class="icon-button" aria-label="Adicionar ao carrinho"
+                (click)="adicionarAoCarrinho(p); $event.stopPropagation();">
+                <mat-icon>add_shopping_cart</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </ng-container>
+
+    </section>
+  </main>
+  <mat-toolbar color="primary" class="footer">
+    <span class="footer-text">&copy; 2025 ShopPrime. Todos os direitos reservados.</span>
+  </mat-toolbar>
+</div>
